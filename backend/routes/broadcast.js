@@ -1,8 +1,8 @@
 const express = require("express");
 const Broadcast = require("../models/Broadcast");
-const { fetchUser } = require('../middlewares/FetchUser');
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
+const { fetchUser } = require("../middlewares/fetchuser");
 const router = express.Router();
 
 router.post(
@@ -44,7 +44,7 @@ router.post(
   }
 );
 
-router.delete('/deletenote/:id',fetchUser ,async(req,res)=>{
+router.delete('/deletenote/:id',fetchUser,async(req,res)=>{
   const note=await Broadcast.findById(req.params.id)
   if(!note){return res.status(404).send("Note not found")};
   if(note.user.toString()!==req.user.id){

@@ -35,7 +35,7 @@ const DisasterDashboard = () => {
     };
 
     fetchBroadcasts();
-  }, [setBroadCast]); // Run only once on component mount
+  }, [setBroadCast]);
 
   const handleSubmit = async () => {
     if (message.trim() === "") {
@@ -106,26 +106,26 @@ const DisasterDashboard = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800">
+    <div className="w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800">
       {role === "admin" ? (
-        <div className="bg-gray-800 text-white shadow-2xl rounded-lg p-8 w-full max-w-lg border-t-4 border-red-600">
-          <h2 className="text-3xl font-bold text-red-500 mb-6 text-center uppercase">
+        <div className="bg-gray-900 text-green-400 shadow-2xl rounded-lg p-8 w-full max-w-lg border-t-4 border-green-500">
+          <h2 className="text-3xl font-bold text-green-400 mb-6 text-center uppercase font-mono">
             Disaster Alert Dashboard
           </h2>
 
-          <p className="text-sm text-gray-400 mb-4 text-center">
+          <p className="text-sm text-gray-400 mb-4 text-center font-mono">
             As an Admin, you can broadcast critical emergency alerts.
           </p>
 
           <div>
             <div className="mb-6">
-              <label htmlFor="message" className="block text-gray-300 text-lg font-semibold mb-2">
+              <label htmlFor="message" className="block text-green-400 text-lg font-mono mb-2">
                 Emergency Message
               </label>
               <textarea
                 id="message"
                 rows="5"
-                className="w-full px-4 py-3 border rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-600 shadow-md"
+                className="w-full px-4 py-3 border rounded-lg bg-gray-800 text-green-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 shadow-md font-mono"
                 placeholder="Type the emergency message here..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
@@ -134,14 +134,14 @@ const DisasterDashboard = () => {
 
             <button
               onClick={handleSubmit}
-              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg shadow-lg transition duration-300 ease-in-out transform hover:scale-105 font-mono"
             >
               Broadcast Alert
             </button>
 
             {/* Show success or error messages */}
-            {successMessage && <p className="text-green-500 mt-4">{successMessage}</p>}
-            {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
+            {successMessage && <p className="text-green-400 mt-4 font-mono">{successMessage}</p>}
+            {errorMessage && <p className="text-red-400 mt-4 font-mono">{errorMessage}</p>}
           </div>
         </div>
       ) : (
@@ -153,9 +153,9 @@ const DisasterDashboard = () => {
         {broadcasts.map((broadcast) => (
           <div
             key={broadcast._id} // Use `_id` from the backend
-            className="relative bg-red-900 text-white shadow-2xl rounded-lg p-4 border-l-8 border-red-600 flex items-center animate-pulse"
+            className="relative bg-gray-800 text-green-300 shadow-lg rounded-lg p-4 border-l-4 border-green-500 flex items-center hover:shadow-green-500 transition duration-300 ease-in-out"
           >
-            <p className="text-xl font-extrabold uppercase flex-grow text-center text-red-300 tracking-wider">
+            <p className="text-xl font-mono uppercase flex-grow text-center tracking-wider">
               {broadcast.text}
             </p>
             <div className="flex space-x-4 absolute right-4">
