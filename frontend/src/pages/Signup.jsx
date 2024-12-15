@@ -3,124 +3,114 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-    const [creds, setCreds] = useState({username: "", email:"", password:"", confirmPassword:""});
-
+  const [creds, setCreds] = useState({ username: "", email: "", password: "", confirmPassword: "" });
   const [passType, setPassType] = useState("password");
   const [confirmPassType, setConfirmPassType] = useState("password");
+  const Navigate = useNavigate();
 
   const togglePassType = () => {
     setPassType(passType === "text" ? "password" : "text");
   };
-  const Navigate=useNavigate();
 
   const toggleConfirmPassType = () => {
     setConfirmPassType(confirmPassType === "text" ? "password" : "text");
   };
 
-  const handleSignup = async(e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     if (creds.password !== creds.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
-    const response=await fetch('http://localhost:3000/auth/signup',{
-        method: 'POST',
-        headers:{
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({username: creds.username, email: creds.email, password: creds.password})
-    }
-)
-const json=await response.json();
-if(json.success){
-    localStorage.setItem('auth-token', json.msg);
-    Navigate('/');
-}
-else{
-    alert(`Error: ${json.msg}`);
-}
-    // Handle signup logic here
-    console.log("Signup:", { username, email, password });
-  };
-  const handleChange=(e)=>{
-    setCreds({...creds,[e.target.name]:e.target.value});
-  }
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-6 md:p-8 w-full max-w-md">
-        {/* Header */}
-        <h2 className="text-2xl font-bold text-gray-800 text-center">
-          Create an Account
-        </h2>
-        <p className="text-gray-600 text-center mt-2">Sign up to get started</p>
 
-        {/* Signup Form */}
+    const response = await fetch("http://localhost:2000/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: creds.username, email: creds.email, password: creds.password }),
+    });
+
+    const json = await response.json();
+
+    if (json.success) {
+      localStorage.setItem("auth-token", json.token);
+      Navigate("/");
+    } else {
+      alert(`Error: ${json.token}`);
+    }
+  };
+
+  const handleChange = (e) => {
+    setCreds({ ...creds, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-black relative overflow-hidden">
+      {/* Background elements */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-800 via-black to-gray-900 opacity-90"></div>
+      <div className="absolute inset-0 flex justify-center items-center">
+        <div className="text-gray-500 text-[60px] md:text-[100px] font-extrabold tracking-wide animate-pulse">
+          🌕
+        </div>
+      </div>
+
+      {/* Signup form */}
+      <div className="relative z-10 bg-gray-900 shadow-2xl rounded-lg p-6 md:p-8 w-full max-w-md border border-gray-700">
+        <h2 className="text-3xl font-bold text-yellow-300 text-center">
+          Join the Sanctuary
+        </h2>
+        <p className="text-yellow-100 text-center mt-2">
+          The world is in ruins, but together, we can rebuild. Be part of something greater.
+        </p>
+
         <form className="mt-6" onSubmit={handleSignup}>
           {/* Username Input */}
           <div className="relative mb-4">
             <input
               type="text"
-              className="peer bg-gray-100 border border-gray-300 rounded-lg w-full p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder=""
+              className="peer bg-gray-800 border border-yellow-500 rounded-lg w-full p-3 text-yellow-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              placeholder="Enter your username"
               value={creds.username}
               name="username"
               onChange={handleChange}
               required
             />
-            <label
-              className="absolute left-3 text-gray-500 text-sm peer-placeholder-shown:text-[17px] peer-focus:block peer-placeholder-shown:block hidden peer-placeholder-shown:top-3 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500 transition-all"
-              htmlFor="username"
-            >
-              Username
-            </label>
+            <label className="absolute left-3 text-yellow-400 text-sm">Username</label>
           </div>
 
           {/* Email Input */}
           <div className="relative mb-4">
             <input
               type="email"
-              className="peer bg-gray-100 border border-gray-300 rounded-lg w-full p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder=""
+              className="peer bg-gray-800 border border-yellow-500 rounded-lg w-full p-3 text-yellow-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              placeholder="Enter your email"
               value={creds.email}
               name="email"
               onChange={handleChange}
               required
             />
-            <label
-              className="absolute left-3 text-gray-500 text-sm peer-placeholder-shown:text-[17px] peer-focus:block peer-placeholder-shown:block hidden peer-placeholder-shown:top-3 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500 transition-all"
-              htmlFor="email"
-            >
-              Email Address
-            </label>
+            <label className="absolute left-3 text-yellow-400 text-sm">Email Address</label>
           </div>
 
           {/* Password Input */}
           <div className="relative mb-4">
             <input
               type={passType}
-              className="peer bg-gray-100 border border-gray-300 rounded-lg w-full p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder=""
+              className="peer bg-gray-800 border border-yellow-500 rounded-lg w-full p-3 text-yellow-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              placeholder="Enter your password"
               value={creds.password}
               name="password"
               onChange={handleChange}
               required
             />
-            <label
-              className="absolute left-3 text-gray-500 text-sm peer-placeholder-shown:text-[17px] peer-focus:block peer-placeholder-shown:block hidden peer-placeholder-shown:top-3 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500 transition-all"
-              htmlFor="password"
-            >
-              Password
-            </label>
+            <label className="absolute left-3 text-yellow-400 text-sm">Password</label>
             <IoMdEye
-              className={`${
-                passType === "text" ? "hidden" : ""
-              } absolute top-4 right-4 text-xl hover:cursor-pointer`}
+              className={`${passType === "text" ? "hidden" : ""} absolute top-4 right-4 text-xl text-yellow-500 hover:cursor-pointer`}
               onClick={togglePassType}
             />
             <IoMdEyeOff
-              className={`${
-                passType === "password" ? "hidden" : ""
-              } absolute top-4 right-4 text-xl hover:cursor-pointer`}
+              className={`${passType === "password" ? "hidden" : ""} absolute top-4 right-4 text-xl text-yellow-500 hover:cursor-pointer`}
               onClick={togglePassType}
             />
           </div>
@@ -129,29 +119,20 @@ else{
           <div className="relative mb-4">
             <input
               type={confirmPassType}
-              className="peer bg-gray-100 border border-gray-300 rounded-lg w-full p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder=""
+              className="peer bg-gray-800 border border-yellow-500 rounded-lg w-full p-3 text-yellow-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              placeholder="Confirm your password"
               value={creds.confirmPassword}
               name="confirmPassword"
               onChange={handleChange}
               required
             />
-            <label
-              className="absolute left-3 text-gray-500 text-sm peer-placeholder-shown:text-[17px] peer-focus:block peer-placeholder-shown:block hidden peer-placeholder-shown:top-3 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500 transition-all"
-              htmlFor="confirmPassword"
-            >
-              Confirm Password
-            </label>
+            <label className="absolute left-3 text-yellow-400 text-sm">Confirm Password</label>
             <IoMdEye
-              className={`${
-                confirmPassType === "text" ? "hidden" : ""
-              } absolute top-4 right-4 text-xl hover:cursor-pointer`}
+              className={`${confirmPassType === "text" ? "hidden" : ""} absolute top-4 right-4 text-xl text-yellow-500 hover:cursor-pointer`}
               onClick={toggleConfirmPassType}
             />
             <IoMdEyeOff
-              className={`${
-                confirmPassType === "password" ? "hidden" : ""
-              } absolute top-4 right-4 text-xl hover:cursor-pointer`}
+              className={`${confirmPassType === "password" ? "hidden" : ""} absolute top-4 right-4 text-xl text-yellow-500 hover:cursor-pointer`}
               onClick={toggleConfirmPassType}
             />
           </div>
@@ -159,21 +140,18 @@ else{
           {/* Signup Button */}
           <button
             type="submit"
-            className="bg-blue-500 text-white w-full py-3 rounded-lg hover:bg-blue-600 transition-all font-bold"
+            className="bg-yellow-500 text-gray-900 w-full py-3 rounded-lg hover:bg-yellow-600 transition-all font-bold shadow-md"
           >
-            Sign Up
+            Begin Anew
           </button>
         </form>
 
         {/* Additional Links */}
         <div className="mt-4 text-center">
-          <p className="text-gray-600 text-sm">
-            Already have an account?{" "}
-            <a
-              href="/login"
-              className="text-blue-500 hover:text-blue-700 font-bold"
-            >
-              Login
+          <p className="text-yellow-300 text-sm">
+            Already part of the sanctuary?{" "}
+            <a href="/login" className="text-yellow-500 hover:text-yellow-600 font-bold">
+              Login Here
             </a>
           </p>
         </div>
@@ -183,4 +161,3 @@ else{
 };
 
 export default Signup;
-
