@@ -195,7 +195,7 @@ router.post('/accept-reject-trade', fetchUser, async (req, res) => {
     }
   });
 
-  
+
   router.post('/update-status', fetchUser, async (req, res) => {
     const { tradeId, status } = req.body;
   
