@@ -1,3 +1,249 @@
+# Dashboard Application
+
+## Overview
+This repository contains the code for a Dashboard application that provides the following features:
+
+- **Authentication**: User registration and login with role-based access (user/admin).
+- **Trade Management**: Users can offer items for trade, initiate trades, and manage trade statuses (accept/reject).
+- **Announcements**: Users can post, fetch, and delete broadcast announcements.
+
+---
+
+## Features
+
+### Authentication
+- **Signup**: Users can register with a username, email, and password. Passwords are securely hashed using `bcrypt`.
+- **Login**: Users can log in with email and password to obtain a JSON Web Token (JWT).
+- **Role-Based Access**: Special admin privileges are granted based on the email defined in the `.env` file.
+
+### Announcement/Broadcasts
+- **Create Broadcast**: Users can add announcements with a minimum length requirement for the message.
+- **Fetch Broadcasts**: Fetch all announcements.
+- **Delete Broadcast**: Users can delete their own broadcasts.
+
+### Trade Management
+- **Offer Items**: Users can list items for trade with descriptions.
+- **Initiate Trade**: Users can propose trades with other users.
+- **Trade Decisions**: Accept or reject trade offers.
+- **Trade Status**: Manage the trade statuses (accepted/rejected/pending).
+
+---
+
+## Technologies Used
+
+- **Backend**: Node.js with Express.js
+- **Database**: MongoDB
+- **Authentication**: JSON Web Tokens (JWT) and bcrypt for password hashing.
+- **Validation**: express-validator for input validation.
+
+---
+
+## Endpoints
+
+### Authentication Routes
+
+#### POST `/signup`
+**Description**: Register a new user.
+
+**Request Body**:
+```json
+{
+  "username": "string",
+  "email": "string",
+  "password": "string"
+}
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "token": "string",
+  "role": "user"
+}
+```
+
+---
+
+#### POST `/login`
+**Description**: Log in a user.
+
+**Request Body**:
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "token": "string",
+  "role": "user | admin"
+}
+```
+
+---
+
+### Broadcast Routes
+
+#### POST `/add`
+**Description**: Add a new broadcast (announcement).
+
+**Request Body**:
+```json
+{
+  "text": "string"
+}
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "msg": "Broadcast has been added successfully",
+  "broadcast": {}
+}
+```
+
+---
+
+#### DELETE `/delete/:id`
+**Description**: Delete a broadcast by ID.
+
+**Response**:
+```json
+{
+  "success": true
+}
+```
+
+---
+
+#### GET `/render`
+**Description**: Fetch all broadcasts.
+
+**Response**:
+```json
+{
+  "success": true,
+  "broadcasts": []
+}
+```
+
+---
+
+### Trade Routes
+
+#### POST `/offer-item`
+**Description**: Offer a new item for trade.
+
+**Request Body**:
+```json
+{
+  "name": "string",
+  "description": "string",
+  "requestedItem": "string (optional)"
+}
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "message": "Item successfully offered for trade.",
+  "item": {}
+}
+```
+
+---
+
+#### POST `/initiate-trade`
+**Description**: Initiate a trade with another user.
+
+**Request Body**:
+```json
+{
+  "itemId": "string",
+  "offeredId": "string"
+}
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "message": "Trade offer sent to username"
+}
+```
+
+---
+
+#### POST `/accept-reject-trade`
+**Description**: Accept or reject a trade offer.
+
+**Request Body**:
+```json
+{
+  "tradeOfferId": "string",
+  "decision": "accept | reject"
+}
+```
+
+**Response**:
+```json
+{
+  "success": true,
+  "message": "Trade accepted!"
+}
+```
+
+---
+
+## Environment Variables
+
+| Variable       | Description                           |
+|----------------|---------------------------------------|
+| `PORT`         | Port number for the server            |
+| `MONGO_URI`    | MongoDB connection string             |
+| `JWT_SECRET`   | Secret key for signing JWTs           |
+| `ADMIN_EMAIL`  | Email to identify the admin role      |
+
+---
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd your-repo
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Set up environment variables in a `.env` file:
+   ```env
+   PORT=5000
+   MONGO_URI=your-mongo-uri
+   JWT_SECRET=your-jwt-secret
+   ADMIN_EMAIL=admin@example.com
+   ```
+
+5. Start the server:
+   ```bash
+   npm start
+   ```
+
+
 # Project: Safety Map and Resource Visualization
 
 ## Overview
