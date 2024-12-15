@@ -23,7 +23,7 @@ const Signup = () => {
       return;
     }
 
-    const response = await fetch("http://localhost:3000/auth/signup", {
+    const response = await fetch("http://localhost:2000/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,10 +34,10 @@ const Signup = () => {
     const json = await response.json();
 
     if (json.success) {
-      localStorage.setItem("auth-token", json.msg);
+      localStorage.setItem("auth-token", json.token);
       Navigate("/");
     } else {
-      alert(`Error: ${json.msg}`);
+      alert(`Error: ${json.token}`);
     }
   };
 

@@ -1,26 +1,31 @@
 import React, { useState } from "react";
 import OfferItem from "../component/OfferItem";
 import ItemList from "../component/ItemList";
+
 const Trade = () => {
   // State to manage which component to display
   const [activeTab, setActiveTab] = useState("offer");
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white">
+    <div className="bg-black min-h-screen text-white font-mono">
       {/* Navigation Tabs */}
-      <nav className="flex justify-center space-x-4 bg-gray-800 py-4">
+      <nav className="flex justify-center space-x-4 bg-gray-900 py-4">
         <button
-          className={`px-4 py-2 rounded ${
-            activeTab === "offer" ? "bg-red-600" : "bg-gray-700"
-          } hover:bg-red-700 transition`}
+          className={`px-6 py-3 rounded-lg text-lg font-bold transition-all ${
+            activeTab === "offer"
+              ? "bg-red-600 text-black"
+              : "bg-gray-700 text-red-400"
+          } hover:bg-red-700 hover:text-white`}
           onClick={() => setActiveTab("offer")}
         >
           Offer Item
         </button>
         <button
-          className={`px-4 py-2 rounded ${
-            activeTab === "list" ? "bg-red-600" : "bg-gray-700"
-          } hover:bg-red-700 transition`}
+          className={`px-6 py-3 rounded-lg text-lg font-bold transition-all ${
+            activeTab === "list"
+              ? "bg-red-600 text-black"
+              : "bg-gray-700 text-red-400"
+          } hover:bg-red-700 hover:text-white`}
           onClick={() => setActiveTab("list")}
         >
           Item List

@@ -23,17 +23,21 @@ const Navbar = () => {
     <nav
       className={`${
         hideNavigation ? "hidden" : ""
-      } ${location.pathname === "/addnote" ? "fixed w-full z-10" : ""} bg-black shadow-lg border-b border-green-500`}
+      } ${
+        location.pathname === "/addnote" ? "fixed w-full z-10" : ""
+      } bg-black shadow-lg border-b border-red-500`}
     >
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
-        <div className="text-green-400 text-xl font-bold font-mono tracking-wide">
-          <Link to="/">Echo<span className="text-blue-500">Link</span></Link>
+        <div className="text-red-400 text-xl font-bold font-mono tracking-wide">
+          <Link to="/">
+            Echo<span className="text-blue-500">Link</span>
+          </Link>
         </div>
 
         {/* Hamburger Menu for Mobile */}
         <button
-          className="text-green-400 md:hidden focus:outline-none"
+          className="text-red-400 md:hidden focus:outline-none"
           onClick={toggleMenu}
         >
           <svg
@@ -61,7 +65,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/"
-              className="text-green-300 font-mono hover:text-green-400 px-4 py-2 transition-colors duration-200"
+              className="text-red-300 font-mono hover:text-red-400 px-4 py-2 transition-colors duration-200"
             >
               Dashboard
             </NavLink>
@@ -69,7 +73,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/trade"
-              className="text-green-300 font-mono hover:text-green-400 px-4 py-2 transition-colors duration-200"
+              className="text-red-300 font-mono hover:text-red-400 px-4 py-2 transition-colors duration-200"
             >
               Trade
             </NavLink>
@@ -77,7 +81,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/communication"
-              className="text-green-300 font-mono hover:text-green-400 px-4 py-2 transition-colors duration-200"
+              className="text-red-300 font-mono hover:text-red-400 px-4 py-2 transition-colors duration-200"
             >
               Communication
             </NavLink>
@@ -85,7 +89,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/map"
-              className="text-green-300 font-mono hover:text-green-400 px-4 py-2 transition-colors duration-200"
+              className="text-red-300 font-mono hover:text-red-400 px-4 py-2 transition-colors duration-200"
             >
               Map
             </NavLink>

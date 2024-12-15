@@ -4,6 +4,7 @@ const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const { fetchUser } = require("../middlewares/fetchuser");
 const router = express.Router();
+const mongoose=require('mongoose')
 
 router.post(
   "/add",
@@ -44,27 +45,46 @@ router.post(
   }
 );
 
-router.delete('/deletenote/:id',fetchUser,async(req,res)=>{
-  const note=await Broadcast.findById(req.params.id)
-  if(!note){return res.status(404).send("Note not found")};
-  if(note.user.toString()!==req.user.id){
+router.delete('/delete/:id',fetchUser,async(req,res)=>{
+  const broadcast=await Broadcast.findById(req.params.id)
+  if(!broadcast){return res.status(404).send("Broadcast not found")};
+  if(broadcast.user.toString()!==req.user.id){
     return res.status(401).send("Access Denied");
   }
   const deleteUser=await Broadcast.findByIdAndDelete(req.params.id);
-  return res.send("Deleted record");
+  return res.status(200).json({success: true});
 })
 
-router.get('/role', fetchUser ,async(req,res)=>{
-  // console.log(req.user)
-  const id=req.user.id;
-  console.log(id);
-  const user=await User.findById(id);
-  const email=user.email;
-  if(user.email===process.env.ADMIN_EMAIL){
-    return res.status(200).json({role: "admin"});
+router.get('/role', fetchUser, async (req, res) => {
+  try {
+    const id = req.user.id;
+    console.log('User ID:', id);
+
+    // Validate ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid user ID' });
+    }
+
+    // Find user by ID
+    const user = await User.findById(id);
+    if (!user) {
+      console.log('User not found for ID:', id);
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Check if the user is an admin
+    if (user.email === process.env.ADMIN_EMAIL) {
+      console.log('Admin access granted for:', user.email);
+      return res.status(200).json({ role: 'admin' });
+    }
+
+    console.log('User role granted for:', user.email);
+    return res.status(200).json({ role: 'user' });
+  } catch (error) {
+    console.error('Error in /role route:', error);
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
-  return res.status(200).json({role: "user"})
-})
+});
 
 router.get('/render', fetchUser, async (req, res) => {
   try {

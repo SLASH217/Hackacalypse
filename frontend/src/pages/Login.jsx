@@ -123,14 +123,6 @@ const Login = () => {
               Sign Up Here
             </a>
           </p>
-          <p className="text-yellow-300 text-sm mt-2">
-            <a
-              href="/forgot-password"
-              className="text-yellow-500 hover:text-yellow-600 font-bold"
-            >
-              Forgot your password? We'll help you recover.
-            </a>
-          </p>
         </div>
       </div>
     </div>

@@ -194,6 +194,33 @@ router.post('/accept-reject-trade', fetchUser, async (req, res) => {
       return res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
   });
+
+  
+  router.post('/update-status', fetchUser, async (req, res) => {
+    const { tradeId, status } = req.body;
+  
+    try {
+      // Validate input
+      if (!['accepted', 'rejected'].includes(status)) {
+        return res.status(400).json({ success: false, error: 'Invalid status value' });
+      }
+  
+      // Find and update the trade
+      const trade = await Trade.findById(tradeId);
+      if (!trade) {
+        return res.status(404).json({ success: false, error: 'Trade not found' });
+      }
+  
+      // Update the status
+      trade.status = status;
+      await trade.save();
+  
+      res.status(200).json({ success: true, message: `Trade marked as ${status}` });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ success: false, error: 'Server error' });
+    }
+  });
   
   
   

@@ -49,13 +49,13 @@ const OfferItem = () => {
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4 text-center text-white">Offer Item</h2>
+    <div className="flex justify-center items-center h-screen bg-black text-red-400 font-mono">
+      <div className="border border-red-400 p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-3xl font-bold mb-4 text-center">OFFER ITEM</h2>
 
         {/* Success Message */}
         {successMessage && (
-          <p className="text-green-500 text-center mb-4">{successMessage}</p>
+          <p className="text-red-300 text-center mb-4">{successMessage}</p>
         )}
 
         {/* Error Message */}
@@ -66,26 +66,26 @@ const OfferItem = () => {
         {/* Input for Item Name */}
         <input
           type="text"
-          placeholder="Item Name"
+          placeholder="> Item Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full p-2 mb-4 bg-gray-700 text-white rounded"
+          className="w-full p-2 mb-4 bg-black border border-red-400 rounded text-red-400 placeholder-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"
         />
 
         {/* Input for Item Description */}
         <textarea
-          placeholder="Item Description"
+          placeholder="> Item Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-2 mb-4 bg-gray-700 text-white rounded"
+          className="w-full p-2 mb-4 bg-black border border-red-400 rounded text-red-400 placeholder-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"
         />
 
         {/* Input for Requested Item */}
         <textarea
-          placeholder="Requested Item (e.g., 'A book in exchange')"
+          placeholder="> Requested Item (e.g., 'A book in exchange')"
           value={requestedItem}
           onChange={(e) => setRequestedItem(e.target.value)}
-          className="w-full p-2 mb-4 bg-gray-700 text-white rounded"
+          className="w-full p-2 mb-4 bg-black border border-red-400 rounded text-red-400 placeholder-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"
         />
 
         {/* Submit Button */}
@@ -94,8 +94,8 @@ const OfferItem = () => {
           disabled={loading}
           className={`w-full p-3 rounded ${
             loading
-              ? "bg-gray-600 cursor-not-allowed"
-              : "bg-red-600 text-white hover:bg-red-700"
+              ? "bg-gray-600 text-red-400 cursor-not-allowed"
+              : "bg-red-400 text-black hover:bg-red-500"
           }`}
         >
           {loading ? "Submitting..." : "Submit Offer"}
