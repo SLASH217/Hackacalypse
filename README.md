@@ -19,7 +19,7 @@ This repository contains the code for a Dashboard application that provides the 
 ### Announcement/Broadcasts
 - **Create Broadcast**: Users can add announcements with a minimum length requirement for the message.
 - **Fetch Broadcasts**: Fetch all announcements.
-- **Delete Broadcast**: Users can delete their own broadcasts.
+--**Only Admin can delete broadcast**: Delete Broadcast
 
 ### Trade Management
 - **Offer Items**: Users can list items for trade with descriptions.

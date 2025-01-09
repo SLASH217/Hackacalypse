@@ -2,7 +2,7 @@ import pandas as pd
 import geopandas as gpd
 import requests
 import os
-
+ 
 BASE_URL = "https://api.mlsakiit.com"
 output_dir = "data"
 os.makedirs(output_dir, exist_ok=True)

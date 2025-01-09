@@ -59,7 +59,7 @@ const Map = () => {
           map.removeLayer(heat); // Cleanup heatmap on 
         };
       }
-    }, [points, map]);6
+    }, [points, map]);
 
     return null;
   };
