@@ -82,7 +82,6 @@ router.post(
         const errorMessages = errors.array().map(err => err.msg).join(", ");
         return res.status(400).json({ success, error: errorMessages });
       }
-  
       const { email, password } = req.body;
       let role="user"
       try {
